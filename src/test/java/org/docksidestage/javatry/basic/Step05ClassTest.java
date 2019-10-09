@@ -28,6 +28,8 @@ import org.docksidestage.unit.PlainTestCase;
  * @author jflute
  * @author your_name_here
  */
+// TODO Taimin add your name to @author. fix it on other files. by katashin (2019/10/09)
+// @author に 名前を追加しよう。他のファイルもね。
 public class Step05ClassTest extends PlainTestCase {
 
     // ===================================================================================
