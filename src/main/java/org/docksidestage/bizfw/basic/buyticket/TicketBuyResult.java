@@ -3,16 +3,17 @@ package org.docksidestage.bizfw.basic.buyticket;
 public class TicketBuyResult {
     private final int handedMoney;
     private int price;
-    private int choice;
+    private int type;
 
-    public TicketBuyResult(int Money,int price) {
+    public TicketBuyResult(int Money,int price, int type) {
         this.handedMoney = Money;
         this.price = price;
+        this.type=type;
     }
     public Ticket getTicket() {
         Ticket x = null;
-        if(choice==1){x=new OneDayPassport(price);}
-        if(choice==2){x=new TwoDayPassport(price);}
+        if(type==1){x=new OneDayPassport(price);}
+        if(type==2){x=new TwoDayPassport(price);}
         return x;
     }
 

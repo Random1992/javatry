@@ -33,11 +33,14 @@ public class TicketBooth {
     private int quantity = MAX_QUANTITY;
     private Integer salesProceeds;
     private int price;
+    private int type;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public TicketBooth() {
+    public TicketBooth(int choice) {
+        type=choice;
+        confirmPrice(type);
     }
     public void confirmPrice(int choice){
         if (choice==1){price=ONE_DAY_PRICE;}
@@ -47,8 +50,17 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                          Buy Ticket
     //                                                                          ==========
-    public void buyPassport(int choice, int handedMoney){
-        confirmPrice(choice);
+    public TicketBuyResult buyPassport(int handedMoney){
+        TicketBuyResult PassportResult=null;
+        if(type==1){
+            PassportResult= buyOneDayPassport(handedMoney);
+        }
+        if(type==2){
+            PassportResult= buyTwoDayPassport(handedMoney);
+        }
+        return PassportResult;
+    }
+    public void buyPassportProcess(int handedMoney){
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
@@ -61,19 +73,17 @@ public class TicketBooth {
         } else {
             salesProceeds = price;
         }
-        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney,price);
     }
-    public Ticket buyOneDayPassport(int handedMoney) {
-        Ticket x=null;
-        buyPassport(1,handedMoney);
-        return x;
+    public TicketBuyResult buyOneDayPassport(int handedMoney) {
+        buyPassportProcess(handedMoney);
+        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney,price,1);
+        return PassportResult;
     }
-
 
     public TicketBuyResult buyTwoDayPassport(int handedMoney){
-        buyPassport(2,handedMoney);
-        TicketBuyResult x=new TicketBuyResult(handedMoney,TWO_DAY_PRICE);
-        return x;
+        buyPassportProcess(handedMoney);
+        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney,price,2);
+        return PassportResult;
     }
     public static class TicketSoldOutException extends RuntimeException {
 
