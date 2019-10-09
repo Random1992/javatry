@@ -47,7 +47,7 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                          Buy Ticket
     //                                                                          ==========
-    public TicketBuyResult buyPassport(int choice, int handedMoney){
+    public void buyPassport(int choice, int handedMoney){
         confirmPrice(choice);
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
@@ -62,11 +62,10 @@ public class TicketBooth {
             salesProceeds = price;
         }
         TicketBuyResult PassportResult = new TicketBuyResult(handedMoney,price);
-        return PassportResult;
     }
     public Ticket buyOneDayPassport(int handedMoney) {
+        Ticket x=null;
         buyPassport(1,handedMoney);
-        Ticket x=new Ticket(ONE_DAY_PRICE);
         return x;
     }
 
