@@ -19,6 +19,7 @@ import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
+import org.docksidestage.bizfw.basic.buyticket.TicketGet;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -26,9 +27,9 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author Taimin
  */
-// TODO Taimin add your name to @author. fix it on other files. by katashin (2019/10/09)
+// done Taimin add your name to @author. fix it on other files. by katashin (2019/10/09)
 // @author に 名前を追加しよう。他のファイルもね。
 public class Step05ClassTest extends PlainTestCase {
 
@@ -112,11 +113,9 @@ public class Step05ClassTest extends PlainTestCase {
         int money = 14000;
         TicketBuyResult PassportResult = booth.buyTwoDayPassport(money);
         int change = PassportResult.getChange();
-        log(change);
         Integer sea = booth.getSalesProceeds() + change;
         log(sea); // should be same as money
-
-        // and show two-day passport quantity here
+        log(booth.getQuantity_TWO());// and show two-day passport quantity here
     }
 
     /**
@@ -196,6 +195,10 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_useInterface() {
         // your confirmation code here
+        Ticket one_day_ticket=new TicketGet(1,7400);
+        log(one_day_ticket.getDisplayPrice());
+        Ticket two_day_ticket=new TicketGet(2,13200);
+        log(two_day_ticket.getDisplayPrice());
     }
 
     /**
@@ -204,6 +207,12 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder() {
         // your confirmation code here
+        TicketBooth booth=new TicketBooth();
+        TicketBuyResult ticketBuyResult=booth.buyFourDayPassport(30000);
+        TicketGet four_day_ticket=ticketBuyResult.getTicket();
+        four_day_ticket.doInPark();
+        log(four_day_ticket.getDisplayPrice());
+        log(four_day_ticket.isAlreadyIn());
     }
 
     /**

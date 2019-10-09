@@ -5,16 +5,13 @@ public class TicketBuyResult {
     private int price;
     private int type;
 
-    public TicketBuyResult(int Money,int price, int type) {
-        this.change = Money-price;
+    public TicketBuyResult(int Money, int price, int type) {
+        this.change = Money - price;
         this.price = price;
-        this.type=type;
+        this.type = type;
     }
-    public Ticket getTicket() {
-        Ticket x = null;
-        if(type==1){x=new OneDayPassport(price);}
-        else if(type==2){x=new TwoDayPassport(price);}
-        else if(type==4){x=new FourDayPassport(price);}
+    public TicketGet getTicket() {
+        TicketGet x = new TicketGet(type, price);
         return x;
     }
 

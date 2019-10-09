@@ -22,10 +22,6 @@ public interface Ticket {
 
     // ===================================================================================
     //                                                                           Attribute
-    //                                                                           =========
-    int displayPrice=0;
-    boolean alreadyIn=false;
-
     void doInPark();
     int getDisplayPrice();
     boolean isAlreadyIn();
