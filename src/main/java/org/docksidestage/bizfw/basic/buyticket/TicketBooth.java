@@ -34,9 +34,9 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    private int quantity_ONE=MAX_QUANTITY;
-    private int quantity_TWO=MAX_QUANTITY;
-    private int quantity_FOUR=MAX_QUANTITY;
+    private int quantity_ONE = MAX_QUANTITY;
+    private int quantity_TWO = MAX_QUANTITY;
+    private int quantity_FOUR = MAX_QUANTITY;
     private Integer salesProceeds;
 
     // ===================================================================================
@@ -49,26 +49,26 @@ public class TicketBooth {
     //                                                                          ==========
     public TicketBuyResult buyOneDayPassport(int handedMoney) {
         buyPassportProcess(handedMoney, ONE_DAY_PRICE, quantity_ONE);
-        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney,ONE_DAY_PRICE,1);
+        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney, ONE_DAY_PRICE, 1);
         --quantity_ONE;
         return PassportResult;
     }
 
     public TicketBuyResult buyTwoDayPassport(int handedMoney) {
         buyPassportProcess(handedMoney, TWO_DAY_PRICE, quantity_TWO);
-        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney,TWO_DAY_PRICE,2);
+        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney, TWO_DAY_PRICE, 2);
         --quantity_TWO;
         return PassportResult;
     }
 
     public TicketBuyResult buyFourDayPassport(int handedMoney) {
         buyPassportProcess(handedMoney, FOUR_DAY_PRICE, quantity_FOUR);
-        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney,FOUR_DAY_PRICE,4);
+        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney, FOUR_DAY_PRICE, 4);
         --quantity_FOUR;
         return PassportResult;
     }
 
-    public void buyPassportProcess(int handedMoney, int price, int quantity){
+    public void buyPassportProcess(int handedMoney, int price, int quantity) {
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }

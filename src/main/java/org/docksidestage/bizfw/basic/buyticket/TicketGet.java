@@ -14,7 +14,7 @@ public class TicketGet implements Ticket {
             throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + price);
         }
         if (times < 1) {
-            throw new IllegalStateException("Not enough times!" );
+            throw new IllegalStateException("Not enough times!");
         }
         --times;
         alreadyIn = true;
@@ -26,5 +26,9 @@ public class TicketGet implements Ticket {
 
     public boolean isAlreadyIn() {
         return alreadyIn;
+    }
+
+    public int ChanceLeft() {
+        return times;
     }
 }

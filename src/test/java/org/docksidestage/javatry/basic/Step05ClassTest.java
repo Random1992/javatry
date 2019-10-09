@@ -195,9 +195,9 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_useInterface() {
         // your confirmation code here
-        Ticket one_day_ticket=new TicketGet(1,7400);
+        Ticket one_day_ticket = new TicketGet(1, 7400);
         log(one_day_ticket.getDisplayPrice());
-        Ticket two_day_ticket=new TicketGet(2,13200);
+        Ticket two_day_ticket = new TicketGet(2, 13200);
         log(two_day_ticket.getDisplayPrice());
     }
 
@@ -207,9 +207,9 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder() {
         // your confirmation code here
-        TicketBooth booth=new TicketBooth();
-        TicketBuyResult ticketBuyResult=booth.buyFourDayPassport(30000);
-        TicketGet four_day_ticket=ticketBuyResult.getTicket();
+        TicketBooth booth = new TicketBooth();
+        TicketBuyResult ticketBuyResult = booth.buyFourDayPassport(30000);
+        TicketGet four_day_ticket = ticketBuyResult.getTicket();
         four_day_ticket.doInPark();
         log(four_day_ticket.getDisplayPrice());
         log(four_day_ticket.isAlreadyIn());
@@ -221,5 +221,11 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_yourRefactoring() {
         // write confirmation code here
+        TicketBooth booth = new TicketBooth();
+        TicketBuyResult ticketBuyResult2 = booth.buyTwoDayPassport(20000);
+        TicketGet two_day_ticket = ticketBuyResult2.getTicket();
+        two_day_ticket.doInPark();
+        log(two_day_ticket.getDisplayPrice());
+        log(two_day_ticket.ChanceLeft());
     }
 }
