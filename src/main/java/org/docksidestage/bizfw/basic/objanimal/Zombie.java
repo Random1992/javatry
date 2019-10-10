@@ -15,11 +15,13 @@
  */
 package org.docksidestage.bizfw.basic.objanimal;
 
+import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
+
 /**
  * The object for zombie(ゾンビ).
  * @author jflute
  */
-public class Zombie extends Animal {
+public class Zombie extends BarkingProcess implements Loudable {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -77,5 +79,9 @@ public class Zombie extends Animal {
     //                                                                            ========
     public ZombieDiary getZombieDiary() {
         return zombieDiary;
+    }
+    @Override
+    public String soundLoudly() {
+        return bark().getBarkWord();
     }
 }

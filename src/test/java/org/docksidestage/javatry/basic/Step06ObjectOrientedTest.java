@@ -261,7 +261,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_objectOriented_polymorphism_6th_overriddenWithoutSuper() {
-        Animal animal = new Zombie();
+        Zombie animal = new Zombie();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
         log(sea); // your answer? => uooo
@@ -293,7 +293,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_objectOriented_polymorphism_interface_partImpl() {
         Animal seaAnimal = new Cat();
-        Animal landAnimal = new Zombie();
+        Zombie landAnimal = new Zombie();
         boolean sea = seaAnimal instanceof FastRunner;
         log(sea); // your answer? => true
         boolean land = landAnimal instanceof FastRunner;
@@ -396,5 +396,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_zoo() {
         // do nothing here
+        Zombie zombie=new Zombie();
+        BarkedSound sound=zombie.bark();
+        String sea=sound.getBarkWord();
+        boolean isAnimal =zombie.getClass().getSuperclass() == Animal.class;
+        log(isAnimal);
+        log(sea);
     }
 }
