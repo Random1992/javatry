@@ -18,15 +18,12 @@ package org.docksidestage.javatry.basic;
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
-import org.docksidestage.bizfw.basic.objanimal.Animal;
-import org.docksidestage.bizfw.basic.objanimal.BarkedSound;
-import org.docksidestage.bizfw.basic.objanimal.Cat;
-import org.docksidestage.bizfw.basic.objanimal.Dog;
-import org.docksidestage.bizfw.basic.objanimal.Zombie;
+import org.docksidestage.bizfw.basic.objanimal.*;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
 import org.docksidestage.unit.PlainTestCase;
+//import sun.launcher.LauncherHelper;
 
 /**
  * The test of object-oriented. <br>
@@ -320,7 +317,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_makeConcrete() {
         // your confirmation code here
-
+        Animal human = new Human();
+        BarkedSound sound = human.bark();
+        String sea = sound.getBarkWord();
+        boolean flag = human instanceof FastRunner;
+        log(sea);
+        log(flag);
     }
 
     /**
@@ -329,6 +331,16 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_makeInterface() {
         // your confirmation code here
+        Human human=new Human();
+        Animal cat=new Cat();
+        Animal dog=new Dog();
+        boolean h=human instanceof Language;
+        boolean c=cat instanceof Language;
+        boolean d=dog instanceof Language;
+        log(h);
+        log(c);
+        log(d);
+        human.speak();
     }
 
     // ===================================================================================
