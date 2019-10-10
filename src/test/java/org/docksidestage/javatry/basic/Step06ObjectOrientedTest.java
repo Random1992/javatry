@@ -22,6 +22,10 @@ import org.docksidestage.bizfw.basic.objanimal.*;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
+import org.docksidestage.javatry.basic.st6.dbms.St6Aql;
+import org.docksidestage.javatry.basic.st6.dbms.St6MySql;
+import org.docksidestage.javatry.basic.st6.dbms.St6PostgreSql;
+import org.docksidestage.javatry.basic.st6.os.Windows;
 import org.docksidestage.unit.PlainTestCase;
 //import sun.launcher.LauncherHelper;
 
@@ -352,6 +356,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_generalization_extractToAbstract() {
         // your confirmation code here
+        St6MySql mysql= new St6MySql();
+        St6PostgreSql postgresql= new St6PostgreSql();
+        boolean sea=mysql instanceof St6Aql;
+        boolean land=postgresql instanceof St6Aql;
+        log(sea);
+        log(land);
     }
 
     /**
@@ -360,6 +370,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_specialization_extractToConcrete() {
         // your confirmation code here
+        Windows w=new Windows();
+        w.setloginId("Taimin");
+        log(w.buildUserResourcePath("javary"));
     }
 
     // ===================================================================================
@@ -371,6 +384,10 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_withDelegation() {
         // your confirmation code here
+        Animal human=new Human();
+        BarkedSound sound=human.bark();
+        String sea=sound.getBarkWord();
+        log(sea);
     }
 
     /**

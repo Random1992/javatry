@@ -23,26 +23,29 @@ public class St6OperationSystem {
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    private static final String OS_TYPE_MAC = "Mac";
-    private static final String OS_TYPE_WINDOWS = "Windows";
-    private static final String OS_TYPE_OLD_WINDOWS = "OldWindows";
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    private final String loginId;
-    private String osType;
-
+    private osType os;
+    private String loginId;
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public St6OperationSystem(String loginId) {
-        this.loginId = loginId;
+    public St6OperationSystem(osType os) {
+        this.os=os;
     }
-
     // ===================================================================================
     //                                                                      User Directory
+    //
     //                                                                      ==============
+    protected String getFileSeparator() {
+        return os.getSymbol();
+    }
+
+    protected String getUserDirectory() {
+        return os.getDirectory() + loginId;
+    }
     public String buildUserResourcePath(String relativePath) {
         String fileSeparator = getFileSeparator();
         String userDirectory = getUserDirectory();
@@ -50,27 +53,7 @@ public class St6OperationSystem {
         return resourcePath.replace("/", fileSeparator);
     }
 
-    protected String getFileSeparator() {
-        if (OS_TYPE_MAC.equalsIgnoreCase(osType)) {
-            return "/";
-        } else if (OS_TYPE_WINDOWS.equalsIgnoreCase(osType)) {
-            return "\\";
-        } else if (OS_TYPE_OLD_WINDOWS.equalsIgnoreCase(osType)) {
-            return "\\";
-        } else {
-            throw new IllegalStateException("Unknown osType: " + osType);
-        }
-    }
-
-    protected String getUserDirectory() {
-        if (OS_TYPE_MAC.equalsIgnoreCase(osType)) {
-            return "/Users/" + loginId;
-        } else if (OS_TYPE_WINDOWS.equalsIgnoreCase(osType)) {
-            return "/Users/" + loginId;
-        } else if (OS_TYPE_OLD_WINDOWS.equalsIgnoreCase(osType)) {
-            return "/Documents and Settigs/" + loginId;
-        } else {
-            throw new IllegalStateException("Unknown osType: " + osType);
-        }
+    public void setloginId(String loginId){
+        this.loginId=loginId;
     }
 }
