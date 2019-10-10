@@ -76,8 +76,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
 
         // other processes here...
         TicketBooth booth = new TicketBooth();
-        TicketBuyResult PassportResult=booth.buyOneDayPassport(handedMoney);
-        Ticket Passport=PassportResult.getTicket();
+        TicketBuyResult PassportResult = booth.buyOneDayPassport(handedMoney);
+        Ticket Passport = PassportResult.getTicket();
         log(Passport.getDisplayPrice());
         log(Passport.isAlreadyIn());
 
@@ -139,7 +139,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // #fixme you if step05 has been finished, you can use this code by jflute (2019/06/15)
         // _/_/_/_/_/_/_/_/_/_/
         TicketBuyResult ticketresult = booth.buyOneDayPassport(10000);
-        Ticket ticket=ticketresult.getTicket();
+        Ticket ticket = ticketresult.getTicket();
         //booth.buyOneDayPassport(10000); // as temporary, remove if you finished steo05
         //Ticket ticket = new Ticket(7400); // also here
 
@@ -305,6 +305,10 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_interface_runnerImpl() {
         // your confirmation code here
+        Dog stupid_dog = new Dog();
+        boolean sea = stupid_dog instanceof FastRunner;
+        log(sea);
+        stupid_dog.run();
     }
 
     // ===================================================================================
@@ -316,6 +320,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_makeConcrete() {
         // your confirmation code here
+
     }
 
     /**

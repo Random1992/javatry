@@ -2,16 +2,15 @@ package org.docksidestage.bizfw.basic.buyticket;
 
 public class TicketBuyResult {
     private final int change;
-    private int price;
-    private int type;
+    private TicketType type;
 
-    public TicketBuyResult(int Money, int price, int type) {
-        this.change = Money - price;
-        this.price = price;
+
+    public TicketBuyResult(int Money, TicketType type) {
+        this.change = Money - type.getPrice();
         this.type = type;
     }
     public TicketGet getTicket() {
-        TicketGet x = new TicketGet(type, price);
+        TicketGet x = new TicketGet(type);
         return x;
     }
 

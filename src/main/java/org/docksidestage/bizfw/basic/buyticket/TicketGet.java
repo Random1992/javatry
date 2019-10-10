@@ -4,9 +4,9 @@ public class TicketGet implements Ticket {
     private int times;
     private int price;
     private boolean alreadyIn;
-    public TicketGet(int type, int price) {
-        this.times = type;
-        this.price = price;
+    public TicketGet(TicketType type) {
+        this.times = type.getCount();
+        this.price = type.getPrice();
     }
 
     public void doInPark() {

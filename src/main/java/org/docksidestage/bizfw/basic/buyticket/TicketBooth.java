@@ -14,9 +14,9 @@
  * governing permissions and limitations under the License.
  */
 package org.docksidestage.bizfw.basic.buyticket;
-
 /**
  * @author jflute
+ * @author taimin
  */
 public class TicketBooth {
 
@@ -49,21 +49,21 @@ public class TicketBooth {
     //                                                                          ==========
     public TicketBuyResult buyOneDayPassport(int handedMoney) {
         buyPassportProcess(handedMoney, ONE_DAY_PRICE, quantity_ONE);
-        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney, ONE_DAY_PRICE, 1);
+        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney, TicketType.OneDayTicket);
         --quantity_ONE;
         return PassportResult;
     }
 
     public TicketBuyResult buyTwoDayPassport(int handedMoney) {
         buyPassportProcess(handedMoney, TWO_DAY_PRICE, quantity_TWO);
-        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney, TWO_DAY_PRICE, 2);
+        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney,TicketType.TwoDayTicket);
         --quantity_TWO;
         return PassportResult;
     }
 
     public TicketBuyResult buyFourDayPassport(int handedMoney) {
         buyPassportProcess(handedMoney, FOUR_DAY_PRICE, quantity_FOUR);
-        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney, FOUR_DAY_PRICE, 4);
+        TicketBuyResult PassportResult = new TicketBuyResult(handedMoney, TicketType.FourDayTicket);
         --quantity_FOUR;
         return PassportResult;
     }

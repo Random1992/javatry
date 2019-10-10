@@ -15,11 +15,8 @@
  */
 package org.docksidestage.javatry.basic;
 
-import org.docksidestage.bizfw.basic.buyticket.Ticket;
-import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
+import org.docksidestage.bizfw.basic.buyticket.*;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
-import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
-import org.docksidestage.bizfw.basic.buyticket.TicketGet;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -195,9 +192,9 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_useInterface() {
         // your confirmation code here
-        Ticket one_day_ticket = new TicketGet(1, 7400);
+        Ticket one_day_ticket = new TicketGet(TicketType.OneDayTicket);
         log(one_day_ticket.getDisplayPrice());
-        Ticket two_day_ticket = new TicketGet(2, 13200);
+        Ticket two_day_ticket = new TicketGet(TicketType.TwoDayTicket);
         log(two_day_ticket.getDisplayPrice());
     }
 
