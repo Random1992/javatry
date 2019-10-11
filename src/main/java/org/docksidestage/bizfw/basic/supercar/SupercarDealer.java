@@ -25,18 +25,33 @@ public class SupercarDealer {
 
     public Supercar orderSupercar(String clientRequirement) {
         SupercarManufacturer manufacturer = createSupercarManufacturer();
+        try{
         if (clientRequirement.contains("steering wheel is like sea")) {
-            return manufacturer.makeSupercar("piari");
+            return manufacturer.makeSupercar("sea");
         } else if (clientRequirement.contains("steering wheel is useful on land")) {
             return manufacturer.makeSupercar("land");
         } else if (clientRequirement.contains("steering wheel has many shop")) {
             return manufacturer.makeSupercar("piari");
         } else {
-            throw new IllegalStateException("Cannot understand the client requirement: " + clientRequirement);
+            throw new SupercarDealerCannotMakeBySpecException("Cannot understand the client requirement: " + clientRequirement);
         }
+        } catch (SupercarManufacturer.SupercarManufacturerCannotMakeBySpecException e)
+        {
+            throw new SupercarDealerCannotMakeBySpecException("The SupercarDealer is ended with illegal clientRequirement:"+clientRequirement);
+        }
+
     }
 
     protected SupercarManufacturer createSupercarManufacturer() {
         return new SupercarManufacturer();
+    }
+
+    public static class SupercarDealerCannotMakeBySpecException extends RuntimeException {
+
+        private static final long serialVersionUID = 1L;
+
+        public SupercarDealerCannotMakeBySpecException(String msg) {
+            super(msg);
+        }
     }
 }

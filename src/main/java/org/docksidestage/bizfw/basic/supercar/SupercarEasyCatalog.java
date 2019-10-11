@@ -34,7 +34,7 @@ public class SupercarEasyCatalog {
     }
 
     public Integer findSteeringWheelSpecId(String catalogKey) {
-        return steeringWheelCatalogMap.get(catalogKey);
+            return steeringWheelCatalogMap.get(catalogKey);
     }
 
     public Map<String, Integer> getSteeringWheelCatalogMap() { // read-only

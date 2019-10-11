@@ -15,6 +15,7 @@
  */
 package org.docksidestage.bizfw.basic.supercar;
 
+import java.awt.*;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,10 +35,23 @@ public class SupercarSteeringWheelComponentDB {
     }
 
     public String findClincherSpecText(Integer clincherSpecId) {
-        return clincherSpecMap.get(clincherSpecId);
+        String specText= clincherSpecMap.get(clincherSpecId);
+//        if(specText=="\\(^_^)/"){
+//            throw new IlegalSpecTextException("Not Specified Spec Text:"+specText);
+//        }
+        return specText;
     }
 
     public Map<Integer, String> getSlincherSpecMap() { // read-only
         return Collections.unmodifiableMap(clincherSpecMap);
+    }
+
+    public static class IlegalSpecTextException extends RuntimeException {
+
+        private static final long serialVersionUID = 1L;
+
+        public IlegalSpecTextException(String msg) {
+            super(msg);
+        }
     }
 }

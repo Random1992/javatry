@@ -121,11 +121,12 @@ public class Step07ExceptionTest extends PlainTestCase {
             Throwable cause = e.getCause();
             sea = cause.getMessage();
             land = cause.getClass().getSimpleName();
-            log(sea); // your answer? => Failed to call the second help method: -1
+            log(sea); // your answer? => Failed to call the third help method: -1
             log(land); // your answer? => IllegalStateException
-            log(e); // your answer? => 
+            log(e); // your answer? => NumberFormatException
         }
     }
+
 
     private void throwCauseFirstLevel() {
         int count = -1;
@@ -168,9 +169,16 @@ public class Step07ExceptionTest extends PlainTestCase {
             // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
             // What happens? Write situation and cause here. (何が起きた？状況と原因をここに書いてみましょう)
             // - - - - - - - - - -
+            //Situation:
+            //SpecialScrewCannotMakeBySpecException:
+            // The kawaii face is not useful to make screw: ScrewSpec:{\(^_^)/}
             //
-            //
-            //
+            //Cause:
+            //1. The clientRequirement is "steering wheel is like sea", the steeringWheelId should
+            // be "1" instead of "3".
+            //2. In the function "findClincherSpecText", the input is "3" and it returns "\\(^_^)/".
+            //3. In the function makeSpecialScrew, the input screwSpec is "\\(^_^)/", and the
+            // program trow a SpecialScrewCannotMakeBySpecException.
             // _/_/_/_/_/_/_/_/_/_/
         }
     }

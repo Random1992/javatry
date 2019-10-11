@@ -29,13 +29,26 @@ public class SupercarClient {
     private final List<Supercar> myCarList = new ArrayList<>(4);
 
     public void buySupercar() {
-        SupercarDealer dealer = createDealer();
-        String clientRequirement = "steering wheel is like sea";
-        Supercar orderedCustomCar = dealer.orderSupercar(clientRequirement);
-        myCarList.add(orderedCustomCar);
+            SupercarDealer dealer = createDealer();
+            String clientRequirement = "steering wheel has many shop";
+        try {
+            Supercar orderedCustomCar = dealer.orderSupercar(clientRequirement);
+            myCarList.add(orderedCustomCar);
+        } catch (SupercarDealer.SupercarDealerCannotMakeBySpecException e){
+            throw new SupercarClientCannotMakeBySpecException("The SupercarClient function is ended with error..");
+        }
     }
 
     protected SupercarDealer createDealer() {
         return new SupercarDealer();
+    }
+
+    public static class SupercarClientCannotMakeBySpecException extends RuntimeException {
+
+        private static final long serialVersionUID = 1L;
+
+        public SupercarClientCannotMakeBySpecException(String msg) {
+            super(msg);
+        }
     }
 }

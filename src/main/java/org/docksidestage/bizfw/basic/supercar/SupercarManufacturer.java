@@ -27,11 +27,15 @@ public class SupercarManufacturer {
 
     public Supercar makeSupercar(String catalogKey) {
         Integer steeringWheelId = catalog.findSteeringWheelSpecId(catalogKey);
-
         SupercarSteeringWheelManufacturer manufacturer = createSupercarSteeringWheelManufacturer();
-        SteeringWheel steeringWheel = manufacturer.makeSteeringWheel(steeringWheelId);
-
-        return new Supercar(steeringWheel);
+        try {
+            SteeringWheel steeringWheel = manufacturer.makeSteeringWheel(steeringWheelId);
+            return new Supercar(steeringWheel);
+        } catch (SupercarSteeringWheelManufacturer.SeeringWheelCannotMakeBySpecException e) {
+            throw new SupercarManufacturerCannotMakeBySpecException("The makeSupercar is ended with illegal catalogKey:"+catalogKey);
+        } catch (SupercarSteeringWheelComponentDB.IlegalSpecTextException e){
+            throw new SupercarManufacturerCannotMakeBySpecException("The makeSupercar is ended with illegal catalogKey:"+catalogKey);
+        }
     }
 
     protected SupercarSteeringWheelManufacturer createSupercarSteeringWheelManufacturer() {
@@ -42,6 +46,15 @@ public class SupercarManufacturer {
 
         public Supercar(SteeringWheel steeringWheel) {
             // dummy
+        }
+    }
+
+    public static class SupercarManufacturerCannotMakeBySpecException extends RuntimeException {
+
+        private static final long serialVersionUID = 1L;
+
+        public SupercarManufacturerCannotMakeBySpecException(String msg) {
+            super(msg);
         }
     }
 }

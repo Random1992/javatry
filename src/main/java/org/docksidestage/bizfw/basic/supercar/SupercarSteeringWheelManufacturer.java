@@ -34,11 +34,14 @@ public class SupercarSteeringWheelManufacturer {
     public SteeringWheel makeSteeringWheel(Integer steeringWheelId) {
         String specText = componentDB.findClincherSpecText(steeringWheelId);
         ScrewSpec screwSpec = new ScrewSpec(specText);
-
         SpecialScrewManufacturer manufacturer = createSpecialScrewManufacturer();
-        SpecialScrew screw = manufacturer.makeSpecialScrew(screwSpec);
-
-        return new SteeringWheel(screw);
+        try {
+            SpecialScrew screw = manufacturer.makeSpecialScrew(screwSpec);
+            return new SteeringWheel(screw);
+        } catch (SpecialScrewManufacturer.SpecialScrewCannotMakeBySpecException e)
+        {
+            throw new SeeringWheelCannotMakeBySpecException("The makeSteeringWheel is ended with illegal steeringWheelId:"+steeringWheelId);
+        }
     }
 
     protected SpecialScrewManufacturer createSpecialScrewManufacturer() {
@@ -49,6 +52,15 @@ public class SupercarSteeringWheelManufacturer {
 
         public SteeringWheel(SpecialScrew screw) {
             // dummy
+        }
+    }
+
+    public static class SeeringWheelCannotMakeBySpecException extends RuntimeException {
+
+        private static final long serialVersionUID = 1L;
+
+        public SeeringWheelCannotMakeBySpecException(String msg) {
+            super(msg);
         }
     }
 }
