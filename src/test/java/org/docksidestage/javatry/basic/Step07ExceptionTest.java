@@ -216,11 +216,11 @@ public class Step07ExceptionTest extends PlainTestCase {
         try {
             helpThrowIllegalState();
         } catch (IllegalStateException e) {
-            throw new St7ConstructorChallengeException("Failed to do something.");
+            throw new St7ConstructorChallengeException("helpSurprisedYabaiCatch Failure",e);
         }
     }
 
     private void helpThrowIllegalState() { // simple implementation here
-        throw new IllegalStateException("something illegal");
+        throw new IllegalStateException("helpThrowIllegalState Failure");
     }
 }

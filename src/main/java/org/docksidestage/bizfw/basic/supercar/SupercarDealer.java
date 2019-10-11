@@ -37,7 +37,7 @@ public class SupercarDealer {
         }
         } catch (SupercarManufacturer.SupercarManufacturerCannotMakeBySpecException e)
         {
-            throw new SupercarDealerCannotMakeBySpecException("The SupercarDealer is ended with illegal clientRequirement:"+clientRequirement);
+            throw new SupercarDealerCannotMakeBySpecException("The SupercarDealer is ended with illegal clientRequirement:"+clientRequirement,e);
         }
 
     }
@@ -49,6 +49,10 @@ public class SupercarDealer {
     public static class SupercarDealerCannotMakeBySpecException extends RuntimeException {
 
         private static final long serialVersionUID = 1L;
+
+        public SupercarDealerCannotMakeBySpecException(String msg, Throwable cause) {
+            super(msg,cause);
+        }
 
         public SupercarDealerCannotMakeBySpecException(String msg) {
             super(msg);

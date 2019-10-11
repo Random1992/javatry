@@ -40,7 +40,7 @@ public class SupercarSteeringWheelManufacturer {
             return new SteeringWheel(screw);
         } catch (SpecialScrewManufacturer.SpecialScrewCannotMakeBySpecException e)
         {
-            throw new SeeringWheelCannotMakeBySpecException("The makeSteeringWheel is ended with illegal steeringWheelId:"+steeringWheelId);
+            throw new SeeringWheelCannotMakeBySpecException("The makeSteeringWheel is ended with illegal steeringWheelId:"+steeringWheelId,e);
         }
     }
 
@@ -59,8 +59,8 @@ public class SupercarSteeringWheelManufacturer {
 
         private static final long serialVersionUID = 1L;
 
-        public SeeringWheelCannotMakeBySpecException(String msg) {
-            super(msg);
+        public SeeringWheelCannotMakeBySpecException(String msg, Throwable cause) {
+            super(msg,cause);
         }
     }
 }

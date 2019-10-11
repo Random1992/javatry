@@ -35,7 +35,7 @@ public class SupercarClient {
             Supercar orderedCustomCar = dealer.orderSupercar(clientRequirement);
             myCarList.add(orderedCustomCar);
         } catch (SupercarDealer.SupercarDealerCannotMakeBySpecException e){
-            throw new SupercarClientCannotMakeBySpecException("The SupercarClient function is ended with error..");
+            throw new SupercarClientCannotMakeBySpecException("The SupercarClient function is ended with error..",e);
         }
     }
 
@@ -47,8 +47,8 @@ public class SupercarClient {
 
         private static final long serialVersionUID = 1L;
 
-        public SupercarClientCannotMakeBySpecException(String msg) {
-            super(msg);
+        public SupercarClientCannotMakeBySpecException(String msg, Throwable cause) {
+            super(msg,cause);
         }
     }
 }

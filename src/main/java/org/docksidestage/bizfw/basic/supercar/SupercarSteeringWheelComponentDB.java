@@ -35,11 +35,7 @@ public class SupercarSteeringWheelComponentDB {
     }
 
     public String findClincherSpecText(Integer clincherSpecId) {
-        String specText= clincherSpecMap.get(clincherSpecId);
-//        if(specText=="\\(^_^)/"){
-//            throw new IlegalSpecTextException("Not Specified Spec Text:"+specText);
-//        }
-        return specText;
+        return clincherSpecMap.get(clincherSpecId);
     }
 
     public Map<Integer, String> getSlincherSpecMap() { // read-only
