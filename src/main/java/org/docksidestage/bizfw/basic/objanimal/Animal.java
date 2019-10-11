@@ -45,6 +45,13 @@ public abstract class Animal extends BarkingProcess implements Loudable {
     // ===================================================================================
     //                                                                           Hit Point
     //                                                                           =========
+    public BarkedSound bark() {
+        breatheIn();
+        prepareAbdominalMuscle();
+        String barkWord = getBarkWord();
+        BarkedSound barkedSound = doBark(barkWord);
+        return barkedSound;
+    }
 
     // ===================================================================================
     //                                                                               Loud
