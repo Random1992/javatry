@@ -213,11 +213,11 @@ public class Step11ClassicStringTest extends PlainTestCase {
     public void test_startsWith_findFirstWord() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
         String name = null;
-        if(!colorBoxList.isEmpty()) {
+        if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
-                for(BoxSpace boxSpace:colorBox.getSpaceList()){
-                    if(boxSpace.getContent() instanceof String){
-                        if(((String) boxSpace.getContent()).startsWith("Water")){
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (boxSpace.getContent() instanceof String) {
+                        if (((String) boxSpace.getContent()).startsWith("Water")) {
                             System.out.print(colorBox.getColor());
                         }
                     }
@@ -233,11 +233,11 @@ public class Step11ClassicStringTest extends PlainTestCase {
     public void test_endsWith_findLastWord() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
         String name = null;
-        if(!colorBoxList.isEmpty()) {
+        if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
-                for(BoxSpace boxSpace:colorBox.getSpaceList()){
-                    if(boxSpace.getContent() instanceof String){
-                        if(((String) boxSpace.getContent()).endsWith("front")){
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (boxSpace.getContent() instanceof String) {
+                        if (((String) boxSpace.getContent()).endsWith("front")) {
                             System.out.print(colorBox.getColor());
                         }
                     }
@@ -256,11 +256,11 @@ public class Step11ClassicStringTest extends PlainTestCase {
     public void test_indexOf_findIndex() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
         String name = null;
-        if(!colorBoxList.isEmpty()) {
+        if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
-                for(BoxSpace boxSpace:colorBox.getSpaceList()){
-                    if(boxSpace.getContent() instanceof String){
-                        if(((String) boxSpace.getContent()).endsWith("front")){
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (boxSpace.getContent() instanceof String) {
+                        if (((String) boxSpace.getContent()).endsWith("front")) {
                             System.out.print(((String) boxSpace.getContent()).indexOf("front"));
                         }
                     }
@@ -276,13 +276,13 @@ public class Step11ClassicStringTest extends PlainTestCase {
     public void test_lastIndexOf_findIndex() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
         String name = null;
-        if(!colorBoxList.isEmpty()) {
+        if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
-                for(BoxSpace boxSpace:colorBox.getSpaceList()){
-                    if(boxSpace.getContent() instanceof String){
-                        String content=((String) boxSpace.getContent());
-                        if(content.contains("ど")){
-                            if(content.split("ど").length==3){
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (boxSpace.getContent() instanceof String) {
+                        String content = ((String) boxSpace.getContent());
+                        if (content.contains("ど")) {
+                            if (content.split("ど").length == 3) {
                                 System.out.print(content.lastIndexOf("ど"));
                             }
                         }
@@ -302,11 +302,11 @@ public class Step11ClassicStringTest extends PlainTestCase {
     public void test_substring_findFirstChar() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
         String name = null;
-        if(!colorBoxList.isEmpty()) {
+        if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
-                for(BoxSpace boxSpace:colorBox.getSpaceList()){
-                    if(boxSpace.getContent() instanceof String){
-                        if(((String) boxSpace.getContent()).endsWith("front")){
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (boxSpace.getContent() instanceof String) {
+                        if (((String) boxSpace.getContent()).endsWith("front")) {
                             System.out.print(((String) boxSpace.getContent()).charAt(0));
                         }
                     }
@@ -320,6 +320,20 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる "Water" で始まる文字列の最後の一文字は？)
      */
     public void test_substring_findLastChar() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String name = null;
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (boxSpace.getContent() instanceof String) {
+                        String content = ((String) boxSpace.getContent());
+                        if (content.startsWith("Water")) {
+                            System.out.print(content.charAt(content.length() - 1));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // ===================================================================================
