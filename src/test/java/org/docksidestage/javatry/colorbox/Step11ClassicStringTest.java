@@ -300,6 +300,19 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる "front" で終わる文字列の最初の一文字は？)
      */
     public void test_substring_findFirstChar() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String name = null;
+        if(!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for(BoxSpace boxSpace:colorBox.getSpaceList()){
+                    if(boxSpace.getContent() instanceof String){
+                        if(((String) boxSpace.getContent()).endsWith("front")){
+                            System.out.print(((String) boxSpace.getContent()).charAt(0));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
