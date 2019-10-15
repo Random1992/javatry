@@ -411,19 +411,36 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスの中に入っている java.util.Map を "map:{ key = value ; key = value ; ... }" という形式で表示すると？)
      */
     public void test_showMap_flat() {
+        String result="map:{ ";
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                     if(boxSpace.getContent()!=null){
                         if(boxSpace.getContent() instanceof LinkedHashMap){
-                            String content=boxSpace.getContent().toString();
-                            System.out.println(content.replaceFirst("\\{","map:{"));
+                            LinkedHashMap content=(LinkedHashMap) boxSpace.getContent();
+                            log(content);
+                            log(content.keySet());
+                            log(Map2String(content));
                             }
                         }
                     }
                 }
             }
+    }
+
+    public String Map2String(LinkedHashMap content){
+        String result="={";
+        for(Object key:content.keySet()){
+            Object segment= content.get(key);
+            if(segment instanceof LinkedHashMap){
+                result+= key.toString()+Map2String((LinkedHashMap) segment)+"}";
+            }else {
+                result += key.toString()+"="+segment.toString();
+            }
+            result+=";";
+        }
+        return result;
     }
 
     /**
@@ -460,13 +477,16 @@ public class Step11ClassicStringTest extends PlainTestCase {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                     if(boxSpace.getContent()!=null){
                         if(boxSpace.getContent() instanceof YourPrivateRoom.SecretBox){
-                            String content=boxSpace.getContent().toString();
-                            System.out.println(content.replace("{","map:{"));
+                            String content=((YourPrivateRoom.SecretBox) boxSpace.getContent()).getText();
+                            log(content);
                         }
                     }
                 }
             }
         }
+    }
+    public void constructMap(){
+
     }
 
     /**
