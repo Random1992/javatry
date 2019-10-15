@@ -15,6 +15,7 @@
  */
 package org.docksidestage.javatry.colorbox;
 
+import java.awt.*;
 import java.util.List;
 
 //import org.apache.jasper.compiler.Node;
@@ -62,6 +63,8 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる文字列の中で、一番長い文字列は？)
      */
     public void test_length_findMax() {
+        Integer MAX_LENGTH=0;
+        String MAX_LENGTH_STRING=null;
         List<ColorBox> colorBoxList=new YourPrivateRoom().getColorBoxList();
         if(!colorBoxList.isEmpty()){
             for(ColorBox colorBox:colorBoxList){
@@ -69,8 +72,11 @@ public class Step11ClassicStringTest extends PlainTestCase {
                 for(BoxSpace space:spacelist){
                     Object content=space.getContent();
                     if(content!=null){
-                        if(content.getClass().getSimpleName()=="String") {
-                            System.out.print(content);
+                        if(content instanceof String) {
+                            if(((String) content).length()>MAX_LENGTH){
+                                MAX_LENGTH=((String) content).length();
+                                MAX_LENGTH_STRING=(String) content;
+                            }
                         }
                     }
                 }
@@ -78,6 +84,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
         }else{
             log("*not found");
         }
+        System.out.print(MAX_LENGTH_STRING);
     }
 
     /**
@@ -85,6 +92,34 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる文字列の中で、一番長いものと短いものの差は何文字？)
      */
     public void test_length_findMaxMinDiff() {
+        Integer MAX_LENGTH=0;
+        Integer MIN_LENGTH=1000;
+        String MAX_LENGTH_STRING=null;
+        String MIN_LENGTH_STRING=null;
+        List<ColorBox> colorBoxList=new YourPrivateRoom().getColorBoxList();
+        if(!colorBoxList.isEmpty()){
+            for(ColorBox colorBox:colorBoxList){
+                List<BoxSpace> spacelist=colorBox.getSpaceList();
+                for(BoxSpace space:spacelist){
+                    Object content=space.getContent();
+                    if(content!=null){
+                        if(content instanceof String) {
+                            if(((String) content).length()>MAX_LENGTH){
+                                MAX_LENGTH=((String) content).length();
+                                MAX_LENGTH_STRING=(String) content;
+                            }
+                            if(((String) content).length()<MIN_LENGTH){
+                                MIN_LENGTH=((String) content).length();
+                                MIN_LENGTH_STRING=(String) content;
+                            }
+                        }
+                    }
+                }
+            }
+        }else{
+            log("*not found");
+        }
+        System.out.print(MAX_LENGTH-MIN_LENGTH);
     }
 
     /**
@@ -92,6 +127,34 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる値 (文字列以外はtoString()) の中で、二番目に長い文字列は？ (ソートなしで))
      */
     public void test_length_findSecondMax() {
+        Integer MAX_LENGTH=0;
+        Integer SECOND_LENGTH=0;
+        String SECOND_LENGTH_STRING=null;
+        List<ColorBox> colorBoxList=new YourPrivateRoom().getColorBoxList();
+        if(!colorBoxList.isEmpty()){
+            for(ColorBox colorBox:colorBoxList){
+                List<BoxSpace> spacelist=colorBox.getSpaceList();
+                for(BoxSpace space:spacelist){
+                    Object content=space.getContent();
+                    if(content!=null){
+                        Integer length=content.toString().length();
+                        if(length) {
+                            if(((String) content).length()>MAX_LENGTH){
+                                MAX_LENGTH=((String) content).length();
+                                MAX_LENGTH_STRING=(String) content;
+                            }
+                            if(((String) content).length()<MIN_LENGTH){
+                                MIN_LENGTH=((String) content).length();
+                                MIN_LENGTH_STRING=(String) content;
+                            }
+                        }
+                    }
+                }
+            }
+        }else{
+            log("*not found");
+        }
+        System.out.print(MAX_LENGTH-MIN_LENGTH);
     }
 
     /**
