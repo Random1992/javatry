@@ -75,6 +75,8 @@ public class Step11ClassicStringTest extends PlainTestCase {
                     Object content = space.getContent();
                     if (content != null) {
                         if (content instanceof String) {
+                            // TODO 張 細かい指摘だけど、 キャスト処理（ここだと (String) content) ）は何回もやるのではなくローカル変数にしてしまうといいとおもうよ！ by もってぃ
+                            //      例: final String strContent = (String) content);
                             if (((String) content).length() > maxlen) {
                                 maxlen = ((String) content).length();
                                 maxLengthString = (String) content;
@@ -127,12 +129,15 @@ public class Step11ClassicStringTest extends PlainTestCase {
      */
     public void test_length_findSecondMax() {
         Integer maxLength = 0;
+        // TODO 張 また細かい指摘だけど、変数名はキャメルケースにしてあげよう！特に省略した変数を使っているときは全て小文字だと変数の意味がわかりづらくなってしまうので by もってぃ
+        //         例: seclen -> secLen, maxlentext -> maxLenText
         Integer seclen = 0;
         String maxlentext = null;
         String seclentext = null;
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
+                // TODO 張 これもキャメルケースにしてあげよう！IntelliJでtypoとしてWarningが出ているよ！ by もってぃ
                 List<BoxSpace> spacelist = colorBox.getSpaceList();
                 for (BoxSpace space : spacelist) {
                     String content = space.toString();
