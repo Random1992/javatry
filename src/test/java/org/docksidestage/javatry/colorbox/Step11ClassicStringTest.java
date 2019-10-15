@@ -17,8 +17,10 @@ package org.docksidestage.javatry.colorbox;
 
 import java.util.List;
 
+//import org.apache.jasper.compiler.Node;
 import org.docksidestage.bizfw.colorbox.ColorBox;
 import org.docksidestage.bizfw.colorbox.color.BoxColor;
+import org.docksidestage.bizfw.colorbox.space.BoxSpace;
 import org.docksidestage.bizfw.colorbox.yours.YourPrivateRoom;
 import org.docksidestage.unit.PlainTestCase;
 
@@ -31,7 +33,7 @@ import org.docksidestage.unit.PlainTestCase;
  * o don't fix the YourPrivateRoom class and color-box classes
  * </pre>
  * @author jflute
- * @author your_name_here
+ * @author taiminzhang
  */
 public class Step11ClassicStringTest extends PlainTestCase {
 
@@ -49,7 +51,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
             BoxColor boxColor = colorBox.getColor();
             String colorName = boxColor.getColorName();
             int answer = colorName.length();
-            log(answer + " (" + colorName + ")"); // also show name for visual check
+            log(answer + " (" + colorName + ")"); //5(green) also show name for visual check
         } else {
             log("*not found");
         }
@@ -60,6 +62,22 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる文字列の中で、一番長い文字列は？)
      */
     public void test_length_findMax() {
+        List<ColorBox> colorBoxList=new YourPrivateRoom().getColorBoxList();
+        if(!colorBoxList.isEmpty()){
+            for(ColorBox colorBox:colorBoxList){
+                List<BoxSpace> spacelist=colorBox.getSpaceList();
+                for(BoxSpace space:spacelist){
+                    Object content=space.getContent();
+                    if(content!=null){
+                        if(content.getClass().getSimpleName()=="String") {
+                            System.out.print(content);
+                        }
+                    }
+                }
+            }
+        }else{
+            log("*not found");
+        }
     }
 
     /**
