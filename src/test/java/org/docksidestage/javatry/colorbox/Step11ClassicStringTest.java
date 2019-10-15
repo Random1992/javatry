@@ -416,7 +416,6 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスの中に入っている java.util.Map を "map:{ key = value ; key = value ; ... }" という形式で表示すると？)
      */
     public void test_showMap_flat() {
-        String result="map:{ ";
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
@@ -424,9 +423,8 @@ public class Step11ClassicStringTest extends PlainTestCase {
                     if(boxSpace.getContent()!=null){
                         if(boxSpace.getContent() instanceof LinkedHashMap){
                             LinkedHashMap content=(LinkedHashMap) boxSpace.getContent();
-                            log(content);
-                            log(content.keySet());
-                            log(Map2String(content));
+                            String result="map:"+Map2String(content,"={").replace("{;","{");
+                            log(result);
                             }
                         }
                     }
@@ -434,16 +432,15 @@ public class Step11ClassicStringTest extends PlainTestCase {
             }
     }
 
-    public String Map2String(LinkedHashMap content){
-        String result="={";
+    public String Map2String(LinkedHashMap content, String symbol){
+        String result=symbol;
         for(Object key:content.keySet()){
             Object segment= content.get(key);
             if(segment instanceof LinkedHashMap){
-                result+= key.toString()+Map2String((LinkedHashMap) segment)+"}";
+                result+= ";"+key.toString()+Map2String((LinkedHashMap) segment,symbol)+"}";
             }else {
-                result += key.toString()+"="+segment.toString();
+                result += ";"+key.toString()+"="+segment.toString();
             }
-            result+=";";
         }
         return result;
     }
@@ -459,8 +456,9 @@ public class Step11ClassicStringTest extends PlainTestCase {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                     if(boxSpace.getContent()!=null){
                         if(boxSpace.getContent() instanceof LinkedHashMap){
-                            String content=boxSpace.getContent().toString();
-                            System.out.println(content.replace("{","map:{"));
+                            LinkedHashMap content=(LinkedHashMap) boxSpace.getContent();
+                            String result=Map2String(content," = map:{").replace("{;","{");
+                            log(result.substring(" = ".length(),result.length()));
                         }
                     }
                 }
@@ -483,6 +481,8 @@ public class Step11ClassicStringTest extends PlainTestCase {
                     if(boxSpace.getContent()!=null){
                         if(boxSpace.getContent() instanceof YourPrivateRoom.SecretBox){
                             String content=((YourPrivateRoom.SecretBox) boxSpace.getContent()).getText();
+                            //LinkedHashMap result=String2Map(content);
+                            //log(result);
                             log(content);
                         }
                     }
@@ -490,6 +490,10 @@ public class Step11ClassicStringTest extends PlainTestCase {
             }
         }
     }
+
+//    public LinkedHashMap String2Map(String content){
+//        return
+//    }
     public void constructMap(){
 
     }
