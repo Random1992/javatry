@@ -274,6 +274,22 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる「ど」を二つ以上含む文字列で、最後の「ど」は何文字目から始まる？ (e.g. "どんどん" => 3))
      */
     public void test_lastIndexOf_findIndex() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String name = null;
+        if(!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for(BoxSpace boxSpace:colorBox.getSpaceList()){
+                    if(boxSpace.getContent() instanceof String){
+                        String content=((String) boxSpace.getContent());
+                        if(content.contains("ど")){
+                            if(content.split("ど").length==3){
+                                System.out.print(content.lastIndexOf("ど"));
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // ===================================================================================
