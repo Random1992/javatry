@@ -16,9 +16,9 @@
 package org.docksidestage.javatry.colorbox;
 
 import java.awt.*;
-import java.util.HashSet;
+import java.io.File;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 
 //import org.apache.jasper.compiler.Node;
 import org.docksidestage.bizfw.colorbox.ColorBox;
@@ -212,7 +212,6 @@ public class Step11ClassicStringTest extends PlainTestCase {
      */
     public void test_startsWith_findFirstWord() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        String name = null;
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
@@ -232,7 +231,6 @@ public class Step11ClassicStringTest extends PlainTestCase {
      */
     public void test_endsWith_findLastWord() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        String name = null;
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
@@ -255,13 +253,12 @@ public class Step11ClassicStringTest extends PlainTestCase {
      */
     public void test_indexOf_findIndex() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        String name = null;
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                     if (boxSpace.getContent() instanceof String) {
                         if (((String) boxSpace.getContent()).endsWith("front")) {
-                            System.out.print(((String) boxSpace.getContent()).indexOf("front"));
+                            System.out.print(((String) boxSpace.getContent()).indexOf("front")+1);
                         }
                     }
                 }
@@ -275,15 +272,14 @@ public class Step11ClassicStringTest extends PlainTestCase {
      */
     public void test_lastIndexOf_findIndex() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        String name = null;
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                     if (boxSpace.getContent() instanceof String) {
                         String content = ((String) boxSpace.getContent());
                         if (content.contains("ど")) {
-                            if (content.split("ど").length == 3) {
-                                System.out.print(content.lastIndexOf("ど"));
+                            if (content.split("ど").length >= 3) {
+                                System.out.print(content.lastIndexOf("ど")+1);
                             }
                         }
                     }
@@ -301,7 +297,6 @@ public class Step11ClassicStringTest extends PlainTestCase {
      */
     public void test_substring_findFirstChar() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        String name = null;
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
@@ -321,7 +316,6 @@ public class Step11ClassicStringTest extends PlainTestCase {
      */
     public void test_substring_findLastChar() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        String name = null;
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
@@ -344,6 +338,19 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる "o" (おー) を含んだ文字列から "o" を全て除去したら何文字？)
      */
     public void test_replace_remove_o() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (boxSpace.getContent() instanceof String) {
+                        String content = ((String) boxSpace.getContent());
+                        if (content.contains("o")) {
+                            System.out.print(content.replace("o",""));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -351,6 +358,19 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * カラーボックスに入ってる java.io.File のパス文字列のファイルセパレーターの "/" を、Windowsのファイルセパレーターに置き換えた文字列は？
      */
     public void test_replace_fileseparator() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if(boxSpace.getContent()!=null){
+                        if(boxSpace.getContent() instanceof File){
+                            String path=((File) boxSpace.getContent()).getPath();
+                            System.out.println(path.replace("/","\\"));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // ===================================================================================
@@ -361,6 +381,26 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスの中に入っているDevilBoxクラスのtextの長さの合計は？)
      */
     public void test_welcomeToDevil() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        Integer lensum=0;
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if(boxSpace.getContent()!=null){
+                        if(boxSpace.getContent() instanceof YourPrivateRoom.DevilBox){
+                            YourPrivateRoom.DevilBox content=(YourPrivateRoom.DevilBox) boxSpace.getContent();
+                            content.wakeUp();
+                            content.allowMe();
+                            content.open();
+                            try{
+                                lensum=lensum+content.getText().length();
+                            }catch (YourPrivateRoom.DevilBoxTextNotFoundException e){}
+                        }
+                    }
+                }
+            }
+        }
+        log(lensum);
     }
 
     // ===================================================================================
@@ -371,6 +411,19 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスの中に入っている java.util.Map を "map:{ key = value ; key = value ; ... }" という形式で表示すると？)
      */
     public void test_showMap_flat() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if(boxSpace.getContent()!=null){
+                        if(boxSpace.getContent() instanceof LinkedHashMap){
+                            String content=boxSpace.getContent().toString();
+                            System.out.println(content.replaceFirst("\\{","map:{"));
+                            }
+                        }
+                    }
+                }
+            }
     }
 
     /**
@@ -378,6 +431,19 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスの中に入っている java.util.Map を "map:{ key = value ; key = map:{ key = value ; ... } ; ... }" という形式で表示すると？)
      */
     public void test_showMap_nested() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if(boxSpace.getContent()!=null){
+                        if(boxSpace.getContent() instanceof LinkedHashMap){
+                            String content=boxSpace.getContent().toString();
+                            System.out.println(content.replace("{","map:{"));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // ===================================================================================
@@ -388,6 +454,19 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (whiteのカラーボックスのupperスペースに入っているSecretBoxクラスのtextをMapに変換してtoString()すると？)
      */
     public void test_parseMap_flat() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if(boxSpace.getContent()!=null){
+                        if(boxSpace.getContent() instanceof YourPrivateRoom.SecretBox){
+                            String content=boxSpace.getContent().toString();
+                            System.out.println(content.replace("{","map:{"));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
