@@ -29,7 +29,7 @@ import org.docksidestage.unit.PlainTestCase;
  * The test of String with color-box, using Stream API you can. <br>
  * Show answer by log() for question of javadoc.
  * @author jflute
- * @author your_name_here
+ * @author taimin
  */
 public class Step12StreamStringTest extends PlainTestCase {
 
