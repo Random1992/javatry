@@ -422,7 +422,9 @@ public class Step11ClassicStringTest extends PlainTestCase {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                     if (boxSpace.getContent() != null) {
+                        // TODO: zhang 問題が「is converted to style ~~ from java.util.Map」となっているので、LinkedHashMapではなくて、Mapの方が良いと思います！ by ちーかま
                         if (boxSpace.getContent() instanceof LinkedHashMap) {
+                            // TODO: zhang 今回はたまたまColorBoxにLinkedHashMapしか入っていないけれど、他のMapの時もStringに変換したいので、LinkedHashMapよりMapを使う方が良いと思います！ by ちーかま
                             LinkedHashMap content = (LinkedHashMap) boxSpace.getContent();
                             String result = "map:" + Map2String(content, "={").replace("{;", "{");
                             log(result);
@@ -433,6 +435,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
         }
     }
 
+    // TODO: zhang メソッド名は先頭の文字は小文字にするのがJavaでは一般的です! Map2String -> map2String by ちーかま
     public String Map2String(LinkedHashMap content, String symbol) {
         String result = symbol;
         for (Object key : content.keySet()) {
