@@ -309,15 +309,17 @@ public class Step12StreamStringTest extends PlainTestCase {
                 .filter(content -> content instanceof YourPrivateRoom.DevilBox)
                 .map(content -> (YourPrivateRoom.DevilBox) content)
                 .collect(Collectors.toList());
-        devilboxs.stream().forEach(content -> {content.wakeUp();
-                                                content.allowMe();
-                                                content.open();
-                                                });
-        int result=0;
-        for(YourPrivateRoom.DevilBox content:devilboxs){
-            try{
-                result+=content.getText().length();
-            } catch (YourPrivateRoom.DevilBoxTextNotFoundException e){}
+        devilboxs.stream().forEach(content -> {
+            content.wakeUp();
+            content.allowMe();
+            content.open();
+        });
+        int result = 0;
+        for (YourPrivateRoom.DevilBox content : devilboxs) {
+            try {
+                result += content.getText().length();
+            } catch (YourPrivateRoom.DevilBoxTextNotFoundException e) {
+            }
         }
         log(result);
     }
@@ -336,9 +338,9 @@ public class Step12StreamStringTest extends PlainTestCase {
                 .flatMap(boxSpaces -> boxSpaces.stream())
                 .map(boxSpace -> boxSpace.getContent())
                 .filter(content -> content instanceof Map)
-                .forEach(content->{
+                .forEach(content -> {
                     String result = map2string((Map) content, " ={");
-                    result="map:" + result.substring(result.indexOf("=")+1,result.length()).replace("{ ;", "{")+" }";
+                    result = "map:" + result.substring(result.indexOf("=") + 1, result.length()).replace("{ ;", "{") + " }";
                     log(result);
                 });
     }
@@ -348,6 +350,17 @@ public class Step12StreamStringTest extends PlainTestCase {
      * (カラーボックスの中に入っている java.util.Map を "map:{ key = value ; key = map:{ key = value ; ... } ; ... }" という形式で表示すると？)
      */
     public void test_showMap_nested() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        colorBoxList.stream()
+                .map(colorBox -> colorBox.getSpaceList())
+                .flatMap(boxSpaces -> boxSpaces.stream())
+                .map(boxSpace -> boxSpace.getContent())
+                .filter(content -> content instanceof Map)
+                .forEach(content -> {
+                    String result = map2string((Map) content, " = map:{").replace("{ ;", "{");
+                    result = result.substring(" = ".length(), result.length()) + " }";
+                    log(result);
+                });
     }
 
     public String map2string(Map content, String symbol) {

@@ -426,7 +426,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                             // Done: zhang 今回はたまたまColorBoxにLinkedHashMapしか入っていないけれど、他のMapの時もStringに変換したいので、LinkedHashMapよりMapを使う方が良いと思います！ by ちーかま
                             Map content = (Map) boxSpace.getContent();
                             String result = map2string(content, " ={");
-                            result="map:" + result.substring(result.indexOf("=")+1,result.length()).replace("{ ;", "{")+" }";
+                            result = "map:" + result.substring(result.indexOf("=") + 1, result.length()).replace("{ ;", "{") + " }";
                             log(result);
                         }
                     }
@@ -459,10 +459,11 @@ public class Step11ClassicStringTest extends PlainTestCase {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                     if (boxSpace.getContent() != null) {
-                        if (boxSpace.getContent() instanceof LinkedHashMap) {
-                            LinkedHashMap content = (LinkedHashMap) boxSpace.getContent();
-                            String result = map2string(content, " = map:{").replace("{;", "{");
-                            log(result.substring(" = ".length(), result.length()));
+                        if (boxSpace.getContent() instanceof Map) {
+                            Map content = (Map) boxSpace.getContent();
+                            String result = map2string(content, " = map:{").replace("{ ;", "{");
+                            result = result.substring(" = ".length(), result.length()) + " }";
+                            log(result);
                         }
                     }
                 }
@@ -495,16 +496,16 @@ public class Step11ClassicStringTest extends PlainTestCase {
     }
 
     public Map String2Map(String content) {
-        content = content.substring(content.indexOf("{")+1, content.lastIndexOf("}"));//step 1
+        content = content.substring(content.indexOf("{") + 1, content.lastIndexOf("}"));//step 1
         String clean_content = shrink_map(content);         //ignore map:{} to find keys at current level
         List<String> keys = find_keys(clean_content);     //use the clean_content to find keys
         List<String> values = find_values(content, keys);  //use the original content to find values
         Map<String, Object> result = new LinkedHashMap<>();
         for (int i = 0; i < keys.size(); i++) {
             if (values.get(i).contains("map")) {
-                result.put(keys.get(i).replace(" ",""), String2Map(values.get(i)));
+                result.put(keys.get(i).replace(" ", ""), String2Map(values.get(i)));
             } else {
-                result.put(keys.get(i).replace(" ",""), values.get(i).replace(";","").replace(" ",""));
+                result.put(keys.get(i).replace(" ", ""), values.get(i).replace(";", "").replace(" ", ""));
             }
         }
         return result;
@@ -515,7 +516,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
         while (contain_map) {
             Integer index_frond = content.indexOf("map:{ ");
             Integer index_end = content.indexOf("}");
-            String segment = content.substring(index_frond, index_end+" }".length()-1);
+            String segment = content.substring(index_frond, index_end + " }".length() - 1);
             Integer number_of_lbracket = segment.length() - segment.replace("{", "").length();
             Integer number_of_rbracket = segment.length() - segment.replace("}", "").length();
             for (int i = 0; i <= number_of_lbracket - number_of_rbracket; i++) {
@@ -543,11 +544,11 @@ public class Step11ClassicStringTest extends PlainTestCase {
             Integer value_front = content.indexOf(keys.get(i));
             Integer value_end = content.indexOf(keys.get(i + 1));
             segment = content.substring(value_front, value_end);
-            values.add(segment.substring(segment.indexOf("=")+1,segment.length()));
+            values.add(segment.substring(segment.indexOf("=") + 1, segment.length()));
         }
         Integer last_value_front = content.indexOf(keys.get(i));
-        segment=content.substring(last_value_front, content.length());
-        values.add(segment.substring(segment.indexOf("=")+1,segment.length()));
+        segment = content.substring(last_value_front, content.length());
+        values.add(segment.substring(segment.indexOf("=") + 1, segment.length()));
         return values;
     }
 
