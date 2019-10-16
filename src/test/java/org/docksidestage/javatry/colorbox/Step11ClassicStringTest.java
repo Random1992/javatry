@@ -15,7 +15,6 @@
  */
 package org.docksidestage.javatry.colorbox;
 
-import java.awt.*;
 import java.io.File;
 import java.util.*;
 import java.util.List;
@@ -422,11 +421,12 @@ public class Step11ClassicStringTest extends PlainTestCase {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                     if (boxSpace.getContent() != null) {
-                        // TODO: zhang 問題が「is converted to style ~~ from java.util.Map」となっているので、LinkedHashMapではなくて、Mapの方が良いと思います！ by ちーかま
-                        if (boxSpace.getContent() instanceof LinkedHashMap) {
-                            // TODO: zhang 今回はたまたまColorBoxにLinkedHashMapしか入っていないけれど、他のMapの時もStringに変換したいので、LinkedHashMapよりMapを使う方が良いと思います！ by ちーかま
-                            LinkedHashMap content = (LinkedHashMap) boxSpace.getContent();
-                            String result = "map:" + Map2String(content, "={").replace("{;", "{");
+                        // Done: zhang 問題が「is converted to style ~~ from java.util.Map」となっているので、LinkedHashMapではなくて、Mapの方が良いと思います！ by ちーかま
+                        if (boxSpace.getContent() instanceof Map) {
+                            // Done: zhang 今回はたまたまColorBoxにLinkedHashMapしか入っていないけれど、他のMapの時もStringに変換したいので、LinkedHashMapよりMapを使う方が良いと思います！ by ちーかま
+                            Map content = (Map) boxSpace.getContent();
+                            String result = map2string(content, " ={");
+                            result="map:" + result.substring(result.indexOf("=")+1,result.length()).replace("{ ;", "{")+" }";
                             log(result);
                         }
                     }
@@ -435,15 +435,15 @@ public class Step11ClassicStringTest extends PlainTestCase {
         }
     }
 
-    // TODO: zhang メソッド名は先頭の文字は小文字にするのがJavaでは一般的です! Map2String -> map2String by ちーかま
-    public String Map2String(LinkedHashMap content, String symbol) {
+    // Done: zhang メソッド名は先頭の文字は小文字にするのがJavaでは一般的です! Map2String -> map2String by ちーかま
+    public String map2string(Map content, String symbol) {
         String result = symbol;
         for (Object key : content.keySet()) {
             Object segment = content.get(key);
-            if (segment instanceof LinkedHashMap) {
-                result += ";" + key.toString() + Map2String((LinkedHashMap) segment, symbol) + "}";
+            if (segment instanceof Map) {
+                result += " ; " + key.toString() + map2string((Map) segment, symbol) + " }";
             } else {
-                result += ";" + key.toString() + "=" + segment.toString();
+                result += " ; " + key.toString() + " = " + segment.toString();
             }
         }
         return result;
@@ -461,7 +461,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                     if (boxSpace.getContent() != null) {
                         if (boxSpace.getContent() instanceof LinkedHashMap) {
                             LinkedHashMap content = (LinkedHashMap) boxSpace.getContent();
-                            String result = Map2String(content, " = map:{").replace("{;", "{");
+                            String result = map2string(content, " = map:{").replace("{;", "{");
                             log(result.substring(" = ".length(), result.length()));
                         }
                     }
