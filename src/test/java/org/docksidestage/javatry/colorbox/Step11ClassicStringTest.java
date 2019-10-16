@@ -263,7 +263,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                     if (boxSpace.getContent() instanceof String) {
                         if (((String) boxSpace.getContent()).endsWith("front")) {
-                            System.out.print(((String) boxSpace.getContent()).indexOf("front")+1);
+                            System.out.print(((String) boxSpace.getContent()).indexOf("front") + 1);
                         }
                     }
                 }
@@ -284,7 +284,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                         String content = ((String) boxSpace.getContent());
                         if (content.contains("ど")) {
                             if (content.split("ど").length >= 3) {
-                                System.out.print(content.lastIndexOf("ど")+1);
+                                System.out.print(content.lastIndexOf("ど") + 1);
                             }
                         }
                     }
@@ -350,7 +350,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                     if (boxSpace.getContent() instanceof String) {
                         String content = ((String) boxSpace.getContent());
                         if (content.contains("o")) {
-                            System.out.print(content.replace("o",""));
+                            System.out.print(content.replace("o", ""));
                         }
                     }
                 }
@@ -367,10 +367,10 @@ public class Step11ClassicStringTest extends PlainTestCase {
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
-                    if(boxSpace.getContent()!=null){
-                        if(boxSpace.getContent() instanceof File){
-                            String path=((File) boxSpace.getContent()).getPath();
-                            System.out.println(path.replace("/","\\"));
+                    if (boxSpace.getContent() != null) {
+                        if (boxSpace.getContent() instanceof File) {
+                            String path = ((File) boxSpace.getContent()).getPath();
+                            System.out.println(path.replace("/", "\\"));
                         }
                     }
                 }
@@ -387,19 +387,20 @@ public class Step11ClassicStringTest extends PlainTestCase {
      */
     public void test_welcomeToDevil() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        Integer lensum=0;
+        Integer lensum = 0;
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
-                    if(boxSpace.getContent()!=null){
-                        if(boxSpace.getContent() instanceof YourPrivateRoom.DevilBox){
-                            YourPrivateRoom.DevilBox content=(YourPrivateRoom.DevilBox) boxSpace.getContent();
+                    if (boxSpace.getContent() != null) {
+                        if (boxSpace.getContent() instanceof YourPrivateRoom.DevilBox) {
+                            YourPrivateRoom.DevilBox content = (YourPrivateRoom.DevilBox) boxSpace.getContent();
                             content.wakeUp();
                             content.allowMe();
                             content.open();
-                            try{
-                                lensum=lensum+content.getText().length();
-                            }catch (YourPrivateRoom.DevilBoxTextNotFoundException e){}
+                            try {
+                                lensum = lensum + content.getText().length();
+                            } catch (YourPrivateRoom.DevilBoxTextNotFoundException e) {
+                            }
                         }
                     }
                 }
@@ -420,26 +421,26 @@ public class Step11ClassicStringTest extends PlainTestCase {
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
-                    if(boxSpace.getContent()!=null){
-                        if(boxSpace.getContent() instanceof LinkedHashMap){
-                            LinkedHashMap content=(LinkedHashMap) boxSpace.getContent();
-                            String result="map:"+Map2String(content,"={").replace("{;","{");
+                    if (boxSpace.getContent() != null) {
+                        if (boxSpace.getContent() instanceof LinkedHashMap) {
+                            LinkedHashMap content = (LinkedHashMap) boxSpace.getContent();
+                            String result = "map:" + Map2String(content, "={").replace("{;", "{");
                             log(result);
-                            }
                         }
                     }
                 }
             }
+        }
     }
 
-    public String Map2String(LinkedHashMap content, String symbol){
-        String result=symbol;
-        for(Object key:content.keySet()){
-            Object segment= content.get(key);
-            if(segment instanceof LinkedHashMap){
-                result+= ";"+key.toString()+Map2String((LinkedHashMap) segment,symbol)+"}";
-            }else {
-                result += ";"+key.toString()+"="+segment.toString();
+    public String Map2String(LinkedHashMap content, String symbol) {
+        String result = symbol;
+        for (Object key : content.keySet()) {
+            Object segment = content.get(key);
+            if (segment instanceof LinkedHashMap) {
+                result += ";" + key.toString() + Map2String((LinkedHashMap) segment, symbol) + "}";
+            } else {
+                result += ";" + key.toString() + "=" + segment.toString();
             }
         }
         return result;
@@ -454,11 +455,11 @@ public class Step11ClassicStringTest extends PlainTestCase {
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
-                    if(boxSpace.getContent()!=null){
-                        if(boxSpace.getContent() instanceof LinkedHashMap){
-                            LinkedHashMap content=(LinkedHashMap) boxSpace.getContent();
-                            String result=Map2String(content," = map:{").replace("{;","{");
-                            log(result.substring(" = ".length(),result.length()));
+                    if (boxSpace.getContent() != null) {
+                        if (boxSpace.getContent() instanceof LinkedHashMap) {
+                            LinkedHashMap content = (LinkedHashMap) boxSpace.getContent();
+                            String result = Map2String(content, " = map:{").replace("{;", "{");
+                            log(result.substring(" = ".length(), result.length()));
                         }
                     }
                 }
@@ -478,12 +479,11 @@ public class Step11ClassicStringTest extends PlainTestCase {
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
-                    if(boxSpace.getContent()!=null){
-                        if(boxSpace.getContent() instanceof YourPrivateRoom.SecretBox){
-                            String content=((YourPrivateRoom.SecretBox) boxSpace.getContent()).getText();
-                            //LinkedHashMap result=String2Map(content);
-                            //log(result);
-                            log(content);
+                    if (boxSpace.getContent() != null) {
+                        if (boxSpace.getContent() instanceof YourPrivateRoom.SecretBox) {
+                            String content = ((YourPrivateRoom.SecretBox) boxSpace.getContent()).getText();
+                            Map result = String2Map(content);
+                            log(result);
                         }
                     }
                 }
@@ -491,11 +491,61 @@ public class Step11ClassicStringTest extends PlainTestCase {
         }
     }
 
-//    public LinkedHashMap String2Map(String content){
-//        return
-//    }
-    public void constructMap(){
+    public Map String2Map(String content) {
+        content = content.substring(content.indexOf("{")+1, content.lastIndexOf("}"));//step 1
+        String clean_content = shrink_map(content);         //ignore map:{} to find keys at current level
+        List<String> keys = find_keys(clean_content);     //use the clean_content to find keys
+        List<String> values = find_values(content, keys);  //use the original content to find values
+        Map<String, Object> result = new LinkedHashMap<>();
+        for (int i = 0; i < keys.size(); i++) {
+            if (values.get(i).contains("map")) {
+                result.put(keys.get(i).replace(" ",""), String2Map(values.get(i)));
+            } else {
+                result.put(keys.get(i).replace(" ",""), values.get(i).replace(";","").replace(" ",""));
+            }
+        }
+        return result;
+    }
 
+    public String shrink_map(String content) {
+        boolean contain_map = content.contains("map:{ ");
+        while (contain_map) {
+            Integer index_frond = content.indexOf("map:{ ");
+            Integer index_end = content.indexOf("}");
+            String segment = content.substring(index_frond, index_end+" }".length()-1);
+            Integer number_of_lbracket = segment.length() - segment.replace("{", "").length();
+            Integer number_of_rbracket = segment.length() - segment.replace("}", "").length();
+            for (int i = 0; i <= number_of_lbracket - number_of_rbracket; i++) {
+                content = content.substring(0, index_frond) + content.substring(index_end + 1, content.length());
+                index_end = content.indexOf("}");
+            }
+            contain_map = content.contains("map:{ ");
+        }
+        return content;
+    }
+
+    public List<String> find_keys(String content) {
+        List<String> keys = new LinkedList<>();
+        for (String segment : content.split(";")) {
+            keys.add(segment.split("=")[0].replace(" ", ""));
+        }
+        return keys;
+    }
+
+    public List<String> find_values(String content, List<String> keys) {
+        List<String> values = new LinkedList<>();
+        int i;
+        String segment;
+        for (i = 0; i < keys.size() - 1; i++) {
+            Integer value_front = content.indexOf(keys.get(i));
+            Integer value_end = content.indexOf(keys.get(i + 1));
+            segment = content.substring(value_front, value_end);
+            values.add(segment.substring(segment.indexOf("=")+1,segment.length()));
+        }
+        Integer last_value_front = content.indexOf(keys.get(i));
+        segment=content.substring(last_value_front, content.length());
+        values.add(segment.substring(segment.indexOf("=")+1,segment.length()));
+        return values;
     }
 
     /**
@@ -503,5 +553,19 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (whiteのカラーボックスのmiddleおよびlowerスペースに入っているSecretBoxクラスのtextをMapに変換してtoString()すると？)
      */
     public void test_parseMap_nested() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (boxSpace.getContent() != null) {
+                        if (boxSpace.getContent() instanceof YourPrivateRoom.SecretBox) {
+                            String content = ((YourPrivateRoom.SecretBox) boxSpace.getContent()).getText();
+                            Map result = String2Map(content);
+                            log(result);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
