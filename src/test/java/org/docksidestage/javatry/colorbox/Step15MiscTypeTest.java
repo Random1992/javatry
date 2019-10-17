@@ -16,6 +16,7 @@
 package org.docksidestage.javatry.colorbox;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.docksidestage.bizfw.colorbox.ColorBox;
@@ -53,6 +54,12 @@ public class Step15MiscTypeTest extends PlainTestCase {
      * (カラーボックスに入っている例外オブジェクトのネストした例外インスタンスのメッセージは？)
      */
     public void test_nestedException() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .map(boxSpace -> boxSpace.getContent())
+                .filter(content->content instanceof Throwable)
+                .forEach(content->log(((Throwable)content).getMessage()));
     }
 
     // ===================================================================================
@@ -63,6 +70,12 @@ public class Step15MiscTypeTest extends PlainTestCase {
      * (カラーボックスに入っているFavoriteProviderインターフェースのjustHere()メソッドの戻り値は？)
      */
     public void test_interfaceCall() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .map(boxSpace -> boxSpace.getContent())
+                .filter(content->content instanceof YourPrivateRoom.FavoriteProvider)
+                .forEach(content->log(((YourPrivateRoom.FavoriteProvider)content).justHere()));
     }
 
     // ===================================================================================
@@ -73,6 +86,21 @@ public class Step15MiscTypeTest extends PlainTestCase {
      * (beigeのカラーボックスに入っているListの中のBoxedResortのBoxedStageのkeywordは？(値がなければ固定の"none"という値を))
      */
     public void test_optionalMapping() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        colorBoxList.stream()
+                .filter(colorBox -> colorBox.getColor().getColorName()=="beige")
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .map(boxSpace->boxSpace.getContent())
+                .filter(content->content instanceof List)
+                .flatMap(content->((List) content).stream())
+                .filter(boxedresort->((YourPrivateRoom.BoxedResort) boxedresort).getPark().isPresent())
+                .map(boxedresort->((YourPrivateRoom.BoxedResort) boxedresort).getPark())
+                .map(boxedPark->((YourPrivateRoom.BoxedPark) boxedPark).getStage())
+                .forEach(boxStage->{
+                    if(boxStage instanceof YourPrivateRoom.BoxedStage){
+                        log(((YourPrivateRoom.BoxedStage) boxStage).getKeyword());
+                    }else {log("none");}
+                                            });
     }
 
     // ===================================================================================
