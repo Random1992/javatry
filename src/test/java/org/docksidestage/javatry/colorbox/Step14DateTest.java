@@ -17,8 +17,7 @@ package org.docksidestage.javatry.colorbox;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.docksidestage.bizfw.colorbox.ColorBox;
@@ -58,16 +57,16 @@ public class Step14DateTest extends PlainTestCase {
      */
     public void test_parseDate() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        List<Object> dates = (List<Object>) colorBoxList.stream()
+        List<String> dates = (List<String>)colorBoxList.stream()
                 .filter(colorBox -> colorBox.getColor().getColorName()=="yellow")
                 .flatMap(colorBox -> colorBox.getSpaceList().stream())
                 .map(boxSpace -> boxSpace.getContent())
                 .filter(content -> content instanceof Set)
                 .flatMap(content -> ((Set) content).stream())
-                //.map(str->str.toString())
-                .map(str-> LocalDate.of(Integer.parseInt(((String) str).split("/")[0]),
-                                        Integer.parseInt(((String) str).split("/")[1]),
-                                         Integer.parseInt(((String) str).split("/")[2])))
+                .filter(str->((String) str).matches("^[0-9/]+$"))
+                .map(str->LocalDate.of(Integer.parseInt(((String) str).split("/")[0]),
+                                            Integer.parseInt(((String) str).split("/")[1]),
+                                            Integer.parseInt(((String) str).split("/")[2])))
                 .collect(Collectors.toList());
         log(dates);
     }
@@ -77,6 +76,16 @@ public class Step14DateTest extends PlainTestCase {
      * (カラーボックスに入っている日付の月を全て足したら？)
      */
     public void test_sumMonth() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        Integer result = (Integer) colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .map(boxSpace -> boxSpace.getContent())
+                .filter(content -> content instanceof LocalDateTime || content instanceof LocalDate)
+                .map(content -> content.toString())
+                .map(content -> content.split("T")[0].split("-")[1])
+                .mapToInt(str->Integer.parseInt((String) str))
+                .sum();
+        log(result);
     }
 
     /**
@@ -84,6 +93,16 @@ public class Step14DateTest extends PlainTestCase {
      * (カラーボックスに入っている二番目に見つかる日付に3日進めると何曜日？)
      */
     public void test_plusDays_weekOfDay() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        List<Object> dates =  colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .map(boxSpace -> boxSpace.getContent())
+                .filter(content -> content instanceof LocalDateTime || content instanceof LocalDate)
+                .collect(Collectors.toList());
+        LocalDate data=LocalDate.of(((LocalDate) dates.get(1)).getYear(),
+                                ((LocalDate) dates.get(1)).getMonth().getValue(),
+                                ((LocalDate) dates.get(1)).getDayOfMonth()+3);
+        log(data.getDayOfWeek());
     }
 
     // ===================================================================================
@@ -94,6 +113,19 @@ public class Step14DateTest extends PlainTestCase {
      * (yellowのカラーボックスに入っている二つの日付は何日離れている？)
      */
     public void test_diffDay() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        List<Object> dates = colorBoxList.stream()
+                .filter(colorBox -> colorBox.getColor().getColorName()=="yellow")
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .map(boxSpace -> boxSpace.getContent())
+                .filter(content -> content instanceof Set)
+                .flatMap(content -> ((Set) content).stream())
+                .filter(str->((String) str).matches("^[0-9/]+$"))
+                .map(str->LocalDate.of(Integer.parseInt(((String) str).split("/")[0]),
+                        Integer.parseInt(((String) str).split("/")[1]),
+                        Integer.parseInt(((String) str).split("/")[2])))
+                .collect(Collectors.toList());
+        log(dates);
     }
 
     /**
