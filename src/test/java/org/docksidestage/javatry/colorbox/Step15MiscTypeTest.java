@@ -15,13 +15,18 @@
  */
 package org.docksidestage.javatry.colorbox;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.docksidestage.bizfw.colorbox.ColorBox;
+import org.docksidestage.bizfw.colorbox.yours.YourPrivateRoom;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
  * The test of various type with color-box. <br>
  * Show answer by log() for question of javadoc.
  * @author jflute
- * @author your_name_here
+ * @author taimin
  */
 public class Step15MiscTypeTest extends PlainTestCase {
 
@@ -33,6 +38,14 @@ public class Step15MiscTypeTest extends PlainTestCase {
      * (カラーボックスに入っているthrowできるオブジェクトのクラス名は？)
      */
     public void test_throwable() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        List<String> names=colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .map(boxSpace -> boxSpace.getContent())
+                .filter(content->content instanceof Throwable)
+                .map(content->content.getClass().getSimpleName())
+                .collect(Collectors.toList());
+        log(names);
     }
 
     /**
