@@ -16,16 +16,15 @@
 package org.docksidestage.javatry.colorbox;
 
 import java.math.BigDecimal;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.docksidestage.bizfw.colorbox.ColorBox;
+import org.docksidestage.bizfw.colorbox.impl.DoorColorBox;
+import org.docksidestage.bizfw.colorbox.space.DoorBoxSpace;
 import org.docksidestage.bizfw.colorbox.yours.YourPrivateRoom;
 import org.docksidestage.unit.PlainTestCase;
 
@@ -33,7 +32,7 @@ import org.docksidestage.unit.PlainTestCase;
  * The test of Date with color-box. <br>
  * Show answer by log() for question of javadoc.
  * @author jflute
- * @author your_name_here
+ * @author taimin
  */
 public class Step14DateTest extends PlainTestCase {
 
@@ -146,14 +145,15 @@ public class Step14DateTest extends PlainTestCase {
                 .map(boxSpace -> boxSpace.getContent())
                 .filter(content -> content instanceof LocalDateTime || content instanceof LocalDate)
                 .collect(Collectors.toList());
-        Integer year = ((LocalDate) dates.get(1)).getYear();
-        Object month = colorBoxList.stream()
+
+        List<String> plus_days1 = colorBoxList.stream()
                 .filter(colorBox -> colorBox.getColor().getColorName() == "red")
                 .flatMap(colorBox -> colorBox.getSpaceList().stream())
                 .map(boxSpace -> boxSpace.getContent())
                 .filter(content -> content instanceof Long)
-                .findFirst();
-        Object day = colorBoxList.stream()
+                .map(content -> content.toString())
+                .collect(Collectors.toList());
+        List<String> plus_days2 =(List<String>) colorBoxList.stream()
                 .flatMap(colorBox -> colorBox.getSpaceList().stream())
                 .map(boxSpace -> boxSpace.getContent())
                 .filter(content -> content instanceof List)
@@ -162,10 +162,11 @@ public class Step14DateTest extends PlainTestCase {
                 // .collect(Collectors.toList());
                 .filter(value -> ((BigDecimal) value).intValue() == 3)
                 .map(value -> value.toString().charAt(2))
-                .findFirst();
-
-//        LocalDate result = LocalDate.of(year, month., (Integer) day);
-//        log(result);
+                .collect(Collectors.toList());
+        Integer plus_days=Integer.parseInt(plus_days1.get(0))+Integer.parseInt(plus_days1.get(0));
+        LocalDate result = (LocalDate) dates.get(1);
+        result=result.plusMonths(((LocalDateTime) dates.get(0)).getSecond()).plusDays(plus_days);
+        log(result);
     }
 
     /**
@@ -173,5 +174,17 @@ public class Step14DateTest extends PlainTestCase {
      * (カラ\ーボックスに入っているLocalTimeの秒は？)
      */
     public void test_beReader() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        colorBoxList.stream()
+                .filter(colorBox -> colorBox instanceof DoorColorBox)
+                .flatMap(colorBox -> ((DoorColorBox) colorBox).getDoorSpaceList().stream())
+                .forEach(boxSpace -> boxSpace.openTheDoor());
+        List<Object> times = colorBoxList.stream()
+                .filter(colorBox -> colorBox instanceof DoorColorBox)
+                .flatMap(colorBox -> ((DoorColorBox) colorBox).getDoorSpaceList().stream())
+                .map(boxSpace -> boxSpace.getContent())
+                .filter(content -> content instanceof LocalTime)
+                .collect(Collectors.toList());
+        log(((LocalTime) times.get(0)).getSecond());
     }
 }
