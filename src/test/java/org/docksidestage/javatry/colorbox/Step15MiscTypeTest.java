@@ -15,6 +15,7 @@
  */
 package org.docksidestage.javatry.colorbox;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -92,13 +93,14 @@ public class Step15MiscTypeTest extends PlainTestCase {
                 .flatMap(colorBox -> colorBox.getSpaceList().stream())
                 .map(boxSpace->boxSpace.getContent())
                 .filter(content->content instanceof List)
-                .flatMap(content->((List) content).stream())
-                .filter(boxedresort->((YourPrivateRoom.BoxedResort) boxedresort).getPark().isPresent())
-                .map(boxedresort->((YourPrivateRoom.BoxedResort) boxedresort).getPark())
-                .map(boxedPark->((YourPrivateRoom.BoxedPark) boxedPark).getStage())
+                .flatMap(content->((List<?>) content).stream())
+                .map(boxedresort-> ((YourPrivateRoom.BoxedResort) boxedresort).getPark())
+                .filter(boxedPark->  boxedPark.isPresent())
+                .map(boxedPark->  boxedPark.get().getStage())
+                .filter(boxedStage -> boxedStage.isPresent())
                 .forEach(boxStage->{
-                    if(boxStage instanceof YourPrivateRoom.BoxedStage){
-                        log(((YourPrivateRoom.BoxedStage) boxStage).getKeyword());
+                    if(boxStage.get().getKeyword()!=null){
+                        log(boxStage.get().getKeyword());
                     }else {log("none");}
                                             });
     }
@@ -111,5 +113,18 @@ public class Step15MiscTypeTest extends PlainTestCase {
      * (getColorBoxList()メソッドの中のmakeEighthColorBox()メソッドを呼び出している箇所の行数は？)
      */
     public void test_lineNumber() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        StackTraceElement[] result=new Throwable().getStackTrace();
+        colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .map(boxSpace -> boxSpace.getContent())
+                .filter(content->content instanceof YourPrivateRoom.BittersweetMemorableException)
+                .forEach(content->{
+                    try {
+                        throw ((Exception) content);
+                    } catch (Exception e) {
+                        log(e.getStackTrace()[1].getLineNumber());
+                    }
+                });
     }
 }
